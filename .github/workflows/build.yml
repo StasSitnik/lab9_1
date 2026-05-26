@@ -24,6 +24,18 @@ jobs:
       working-directory: ./lab9_1
       run: chmod +x gradlew
 
-    - name: Build all targets
+    - name: Build Android App
       working-directory: ./lab9_1
-      run: ./gradlew build --no-daemon
+      run: ./gradlew :androidApp:assembleDebug --no-daemon
+
+    - name: Build Desktop App (Linux/JVM)
+      working-directory: ./lab9_1
+      run: ./gradlew :desktopApp:assemble --no-daemon
+
+    - name: Build Web App (Wasm/JS)
+      working-directory: ./lab9_1
+      run: ./gradlew :webApp:compileKotlinWasmJs --no-daemon
+
+    - name: Build iOS Target
+      working-directory: ./lab9_1
+      run: ./gradlew :shared:linkDebugFrameworkIosSimulatorArm64 --no-daemon
