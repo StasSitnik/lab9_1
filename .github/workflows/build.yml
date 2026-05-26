@@ -1,0 +1,29 @@
+name: Build All Platforms
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Make gradle wrapper executable
+      working-directory: ./lab9_1
+      run: chmod +x gradlew
+
+    - name: Build all targets
+      working-directory: ./lab9_1
+      run: ./gradlew build --no-daemon
